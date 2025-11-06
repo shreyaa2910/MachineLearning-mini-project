@@ -94,10 +94,10 @@ The primary comparison was based on Test Accuracy and Test F1-Score. Training an
   * The best performing was the Logistic Regression (LR) with the highest accuracy (88.4) and F1-score (88.4). This dominance can probably be explained by high predictive abilities of TF-IDF bigrams. Naive Bayes (MNB) had a very high baseline with a 85.4 accuracy, and is the fastest to train (0.06s).
 
 #### 2. Bi-LSTM Model
-  The Bi-LSTM model was comparatively worse than the classical ones (84.3 accuracy). It suggests that the sequential context that was trained on the RNN (5 epochs) offered less meaningful information to this dataset compared with the TF-IDF n-gram features.
+ * The Bi-LSTM model was comparatively worse than the classical ones (84.3 accuracy). It suggests that the sequential context that was trained on the RNN (5 epochs) offered less meaningful information to this dataset compared with the TF-IDF n-gram features.
 
 #### 3. DistilBERT Model (Training Failure)
-The DistilBERT model found that it trained a clear flop that only had 50.0 accuracy the chance of a task with a balanced binary. This is reinforced in the qualitative review of section 5.2, which indicates that the model generally only predicted "Positive." This weak performance is probably due to lack of sufficient training time (2 epochs only) or improper learning rate to fine-tune. This result highlights the fact that transformer models cannot be immediately utilized and need significant hyperparameter optimization until they can reach state-of-the-art.
+ * The DistilBERT model found that it trained a clear flop that only had 50.0 accuracy the chance of a task with a balanced binary. This is reinforced in the qualitative review of section 5.2, which indicates that the model generally only predicted "Positive." This weak performance is probably due to lack of sufficient training time (2 epochs only) or improper learning rate to fine-tune. This result highlights the fact that transformer models cannot be immediately utilized and need significant hyperparameter optimization until they can reach state-of-the-art.
 
 ---
 
