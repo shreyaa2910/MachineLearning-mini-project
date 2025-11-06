@@ -3,10 +3,9 @@
 # 📊 Comparative Analysis of ML and DL Models for IMDb Sentiment Analysis
 
 ## 1. Description
-This project compares four ML/DL models on a binary sentiment analysis task, classifying "Positive" or "Negative" reviews from the IMDb dataset. This type of analysis is a critical NLP function used for social media monitoring and customer feedback.
-The study benchmarks classical "bag-of-words" models (like Logistic Regression) against sequential (RNN) and transformer (DistilBERT) architectures, evaluating trade-offs in performance, complexity, and training speed. The findings indicate that, for this specific dataset, an optimized Logistic Regression model provided the best mix of accuracy and efficiency, surpassing the deep learning models under the tested conditions.
+The current project compares four ML/DL models to a binary sentiment analysis task, i.e., defining Positive or Negative reviews with regards to IMDb data. It is a critical NLP task that is applied in the social media monitoring and customer feedback. The authors compare classical bag-of-words (e.g. Logistic Regression) models with sequential (RNN) and transformer (DistilBERT) architectures, in terms of trade-offs between their performance, complexity and training speed. The results show that there is an optimized Logistic Regression model that is the most effective in terms of accuracy and efficiency, and it was outperforming the deep learning models in the conditions in which the experiments were conducted.
  
-> 🏆 Results show that a well-tuned *Logistic Regression* provides the best balance of high accuracy and efficiency, outperforming deep learning models under current training conditions.
+> 🏆 Results demonstrates that a properly tuned Logistic Regression gives optimal balance between high accuracy and high efficiency, and beats deep learning models in present training circumstances.
 
 ---
 
@@ -23,13 +22,12 @@ The study benchmarks classical "bag-of-words" models (like Logistic Regression) 
 ---
 
 ### 🧹 Preprocessing
-The methodology began by loading the full dataset into a Pandas DataFrame, establishing a "Single Source of Truth." This initial step was followed by the creation of two separate preprocessing pipelines, each tailored for a specific category of models.
+The first step of methodology was loading the entire dataset in a Pandas DataFrame, which defined a Single Source of Truth. This first step was succeeded by the development of two different preprocessing pipelines that were designed to be used in a particular category of models.
+
 
 #### A. For Classical Models (Naive Bayes & Logistic Regression)
-This process involved a sequence of five steps:
-•	First, the text was cleaned using regular expressions to remove HTML tags and non-alphabetic characters.
-•	Second, all text was normalized to lowercase.
-•	Third, the text was tokenized (split into words), and standard NLTK stopwords were filtered out.
+This was done in five steps, which were: • Second, text was put into lower case form. Thirdly, the text was tokenized (cut into words) and common NLTK stopwords were removed.
+
 •	Fourth, a WordNetLemmatizer was applied to standardize words to their base form.
 •	Finally, the preprocessed text was vectorized using TfidfVectorizer. This vectorizer was limited to 20,000 features and set to include both unigrams and bigrams (ngram_range=(1, 2))
 
@@ -93,28 +91,28 @@ The primary comparison was based on Test Accuracy and Test F1-Score. Training an
 ### 🔍 Analysis of Results
 
 #### 1. Classical Models (LR & MNB)
-  *Logistic Regression* (LR) emerged as the top performer, yielding the best accuracy ($\mathbf{88.4\%}$) and F1-score ($\mathbf{88.4\%}$). This superiority is likely attributable to the strong predictive capabilities of TF-IDF bigrams. Naive Bayes (MNB) established a very strong baseline, achieving $\mathbf{85.4\%}$ accuracy, and was the quickest model to train ($\mathbf{0.06s}$).
+  * The best performing was the Logistic Regression (LR) with the highest accuracy (88.4) and F1-score (88.4). This dominance can probably be explained by high predictive abilities of TF-IDF bigrams. Naive Bayes (MNB) had a very high baseline with a 85.4 accuracy, and is the fastest to train (0.06s).
 
 #### 2. Bi-LSTM Model
-  The Bi-LSTM model showed lower performance than both classical approaches ($\mathbf{84.3\%}$ accuracy). This indicates that the sequential context learned by the RNN (trained over 5 epochs) provided less valuable information for this dataset than the TF-IDF n-gram features
+  The Bi-LSTM model was comparatively worse than the classical ones (84.3 accuracy). It suggests that the sequential context that was trained on the RNN (5 epochs) offered less meaningful information to this dataset compared with the TF-IDF n-gram features.
 
 #### 3. DistilBERT Model (Training Failure)
-The DistilBERT model resulted in a clear training failure, achieving only $\mathbf{50.0\%}$ accuracy—the level of random chance for a balanced binary task. Section 5.2's qualitative review supports this, showing the model almost exclusively predicted "Positive." This poor outcome likely stems from inadequate training time (only 2 epochs) or an unsuitable learning rate for fine-tuning. This outcome underscores that transformer models are not instantly deployable and require substantial hyperparameter optimization to reach state-of-the-art performance
+The DistilBERT model found that it trained a clear flop that only had 50.0 accuracy the chance of a task with a balanced binary. This is reinforced in the qualitative review of section 5.2, which indicates that the model generally only predicted "Positive." This weak performance is probably due to lack of sufficient training time (2 epochs only) or improper learning rate to fine-tune. This result highlights the fact that transformer models cannot be immediately utilized and need significant hyperparameter optimization until they can reach state-of-the-art.
 
 ---
 
 ### 📊 Visualizations
 
 #### 1. Model Performance (Accuracy & F1)
-The performance hierarchy is visually reinforced by the bar charts generated in Section 5.1 of the notebook, which clearly show Logistic Regression as the leading model.
-This conclusion is further supported by the ROC Curve Comparison plot (found in Section 5.2). The curves for Logistic Regression and Naive Bayes are situated closer to the top-left corner—indicating a higher Area Under the Curve (AUC)—compared to the LSTM model.
+The bar charts created in Section 5.1 of the notebook, which obviously indicate the most influential model to be Logistic Regression, are the visual reinforcement of the performance hierarchy.
+This is further confirmed by the plot of the ROC Curve Comparison (located in Section 5.2). The Logistic Regression and Naive Bayes curves are placed nearer to the top-left corner (which means that they have a larger Area Under the Curve (AUC)).
 
 <img width="1206" height="585" alt="1" src="https://github.com/user-attachments/assets/1f6237de-34a8-4820-98b8-49ee9c39a68d" />
 
 ---
 
 #### 2. ROC Curve Comparison
-The *ROC curves* demonstrate that *Logistic Regression* and *Naive Bayes* have curves closest to the *top-left corner*, indicating higher AUC values than Bi-LSTM.
+The ROC curves indicate that the curve of the Logistic Regression and the Naive Bayes is nearest to the upper left part of the curve, which means that these two classifiers show greater values of the AUC when compared to Bi-LSTM.
 
 <img width="850" height="707" alt="2" src="https://github.com/user-attachments/assets/74eed1cd-a36c-460d-936b-cf02b32d4f28" />
 
@@ -123,11 +121,10 @@ The *ROC curves* demonstrate that *Logistic Regression* and *Naive Bayes* have c
 
 ## 6. 🧾 Conclusion
 
-This project's key finding is a validation of the effectiveness of classical models. A meticulously configured Logistic Regression model, leveraging TF-IDF features, was found to be the optimal choice. It not only outperformed a Bi-LSTM and a suboptimally-tuned DistilBERT architecture but also demonstrated orders-of-magnitude faster training and deployment.
-Although transformer models, like DistilBERT, represent the cutting edge of NLP, this experiment underscores the fact that achieving state-of-the-art results is contingent upon extensive and meticulous hyperparameter optimization. In its absence, strong classical baselines often retain their competitive edge due to their inherent efficiency and high effectiveness in many text classification scenarios
+The main finding of this project is the approval of the validity of classical models. The best option turned out to be a carefully-tuned Logistic Regression model, which makes use of TF-IDF features. Not only did it outperform a Bi-LSTM and a suboptimally-tuned DistilBERT architecture, but also it had orders-of-magnitudes faster training and deployment. Even though transformer models, such as DistilBERT, are the state-of-the-art in NLP, this experiment highlights the fact that to be able to achieve state-of-the-art results, careful, and thorough hyperparameter optimization is essential. Without it, powerful classical baselines will still have competitive advantage as their efficiency and high effectiveness in most of the text classification cases can be inbuilt.
 
 
-> ⚡ *Takeaway:* A well-designed baseline can beat complex architectures when implemented and optimized efficiently.
+> ⚡ *Takeaway:* Well-designed baselines can be used in complex architectures to succeed when done and optimised.
 
 ---
 
