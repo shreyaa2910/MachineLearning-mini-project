@@ -1,12 +1,9 @@
 # 📊 Comparative Analysis of ML and DL Models for IMDb Sentiment Analysis
 
 ## 1. Description
-This project conducts a *comparative study* of four different Machine Learning (ML) and Deep Learning (DL) models for binary text classification.  
-The task is *Sentiment Analysis* on the IMDb movie review dataset, classifying reviews as either Positive or Negative.
-
-Sentiment analysis is a crucial task in *Natural Language Processing (NLP)* with applications ranging from customer feedback analysis to social media monitoring.  
-This project benchmarks classical bag-of-words models against sequential (RNN) and transformer-based (DistilBERT) architectures to evaluate trade-offs between *performance, complexity, and training time*.
-
+This project compares four ML/DL models on a binary sentiment analysis task, classifying "Positive" or "Negative" reviews from the IMDb dataset. This type of analysis is a critical NLP function used for social media monitoring and customer feedback.
+The study benchmarks classical "bag-of-words" models (like Logistic Regression) against sequential (RNN) and transformer (DistilBERT) architectures, evaluating trade-offs in performance, complexity, and training speed. The findings indicate that, for this specific dataset, an optimized Logistic Regression model provided the best mix of accuracy and efficiency, surpassing the deep learning models under the tested conditions.
+ 
 > 🏆 Results show that a well-tuned *Logistic Regression* provides the best balance of high accuracy and efficiency, outperforming deep learning models under current training conditions.
 
 ---
@@ -14,9 +11,9 @@ This project benchmarks classical bag-of-words models against sequential (RNN) a
 ## 2. Dataset Source and Preprocessing
 
 ### 📚 Dataset
-- *Source:* IMDb Movie Reviews dataset (from tensorflow_datasets)
-- *Size:* 50,000 movie reviews  
-- *Split:*
+- *Source:* IMDb Movie Reviews dataset, loaded directly from tensorflow_datasets (TFDS).
+- *Size:* 50,000 movie reviews.  
+- *Split:* The dataset is split into:
   - Training: 20,000 reviews  
   - Validation: 5,000 reviews  
   - Test: 25,000 reviews  
@@ -24,26 +21,23 @@ This project benchmarks classical bag-of-words models against sequential (RNN) a
 ---
 
 ### 🧹 Preprocessing
-A “Single Source of Truth” approach was used by loading the full dataset into a Pandas DataFrame first.  
-Two distinct preprocessing pipelines were applied for classical and deep learning models.
+The methodology began by loading the full dataset into a Pandas DataFrame, establishing a "Single Source of Truth." This initial step was followed by the creation of two separate preprocessing pipelines, each tailored for a specific category of models.
 
 #### A. For Classical Models (Naive Bayes & Logistic Regression)
-1. *Text Cleaning:* Removed HTML tags (<br />) and non-alphabetic characters using regex.  
-2. *Normalization:* Converted all text to lowercase.  
-3. *Tokenization & Filtering:* Split text into words and removed stopwords (from NLTK).  
-4. *Lemmatization:* Reduced words to their base form using WordNetLemmatizer.  
-5. *Vectorization:* Used TfidfVectorizer with:
-   - max_features = 20,000
-   - ngram_range = (1, 2) (unigrams and bigrams)
+This process involved a sequence of five steps:
+•	First, the text was cleaned using regular expressions to remove HTML tags and non-alphabetic characters.
+•	Second, all text was normalized to lowercase.
+•	Third, the text was tokenized (split into words), and standard NLTK stopwords were filtered out.
+•	Fourth, a WordNetLemmatizer was applied to standardize words to their base form.
+•	Finally, the preprocessed text was vectorized using TfidfVectorizer. This vectorizer was limited to 20,000 features and set to include both unigrams and bigrams (ngram_range=(1, 2))
+
 
 #### B. For Deep Learning Models (Bi-LSTM & DistilBERT)
 1. *Bi-LSTM:*  
-   - Used tf.keras.layers.TextVectorization for preprocessing (tokenization, integer encoding, padding).  
-   - Parameters: VOCAB_SIZE = 20,000, MAX_SEQUENCE_LENGTH = 250.  
+   This model's pipeline ingested the raw review text, letting an initial tf.keras.layers.TextVectorization layer perform all preprocessing. This layer was set to create a 20,000-word vocabulary and pad or truncate sequences to 250 tokens, handling all tokenization and integer mapping internally.  
 
 2. *DistilBERT:*  
-   - Tokenized using the pre-trained DistilBertTokenizer.  
-   - Added special tokens ([CLS], [SEP]), truncated, and padded to max_length = 250.
+   For this model, the DistilBertTokenizer was used to tokenize the raw text. The process involved appending special [CLS] and [SEP] tokens and standardizing all sequences to a 250-token length through padding or truncation.
 
 ---
 
@@ -53,28 +47,19 @@ Four models were selected to represent a range of NLP techniques:
 
 | Model | Description |
 |--------|--------------|
-| *Multinomial Naive Bayes (MNB)* | Fast probabilistic baseline that performs well with TF-IDF features. Assumes feature independence. |
-| *Logistic Regression (LR)* | Strong, interpretable linear model; performs well on text classification with TF-IDF n-grams. |
-| *Bidirectional LSTM (Bi-LSTM)* | RNN designed to capture sequential dependencies by reading text both forward and backward. |
-| *DistilBERT* | A distilled, faster version of BERT using attention mechanisms for deep contextual understanding. Fine-tuned for this task. |
+| *Multinomial Naive Bayes (MNB)* | A fast, probabilistic baseline that pairs well with TF-IDF and assumes feature independence. |
+| *Logistic Regression (LR)* | A powerful, interpretable linear model that often excels in text classification, especially with TF-IDF n-grams. |
+| *Bidirectional LSTM (Bi-LSTM)* | An RNN that processes text in both directions (forwards and backwards) to capture richer sequential context. |
+| *DistilBERT* | A smaller, faster version of the BERT transformer. It was pre-trained and then fine-tuned for this task, using attention mechanisms for deep contextual analysis. |
 
 ---
 
-## 4. Steps to Run the Code
 
-1. *Environment:*  
-   - Run in *Google Colab*.  
-   - Enable GPU: Runtime > Change runtime type > GPU (T4).
-
-2. *Installation:*  
-   Install required libraries:
-   ```bash
-   !pip install transformers datasets -q
 
 ## 5. 🧪 Experiments and Results Summary
 
 ### 📈 Quantitative Benchmarking
-The comparison between classical and deep learning models was based on *Test Accuracy, **F1-Score, **Training Time, and **Inference Time*.
+The primary comparison was based on Test Accuracy and Test F1-Score. Training and inference times were also recorded for a practical comparison of efficiency.
 
 | Model | Test Accuracy | Test F1-Score | Training Time (s) | Inference Time (s/review) |
 |--------|----------------|---------------|-------------------|----------------------------|
@@ -88,35 +73,25 @@ The comparison between classical and deep learning models was based on *Test Acc
 ### 🔍 Analysis of Results
 
 #### 1. Classical Models (LR & MNB)
-- *Logistic Regression* achieved the *highest accuracy (88.4%)* and *F1-score (88.4%)*.  
-- This strong performance can be attributed to the *TF-IDF bigrams*, which effectively capture sentiment context.  
-- *Naive Bayes* was the *fastest to train (0.06s)* while maintaining a strong *85.4% accuracy*.  
-- These results emphasize that *simple models can outperform complex ones* when well-tuned.
+  *Logistic Regression* (LR) emerged as the top performer, yielding the best accuracy ($\mathbf{88.4\%}$) and F1-score ($\mathbf{88.4\%}$). This superiority is likely attributable to the strong predictive capabilities of TF-IDF bigrams. Naive Bayes (MNB) established a very strong baseline, achieving $\mathbf{85.4\%}$ accuracy, and was the quickest model to train ($\mathbf{0.06s}$).
 
 #### 2. Bi-LSTM Model
-- The *Bi-LSTM* achieved *84.3% accuracy*, lower than both classical models.  
-- This suggests that the *sequential dependencies* captured by RNNs in this dataset were less informative than TF-IDF features.  
-- Training for *only 5 epochs* might have limited the model’s potential.
+  The Bi-LSTM model showed lower performance than both classical approaches ($\mathbf{84.3\%}$ accuracy). This indicates that the sequential context learned by the RNN (trained over 5 epochs) provided less valuable information for this dataset than the TF-IDF n-gram features
 
 #### 3. DistilBERT Model (Training Failure)
-- The *DistilBERT* model achieved *50.0% accuracy*, equivalent to random guessing.  
-- Qualitative analysis revealed it predicted “Positive” for almost all inputs — a *training failure*.  
-- Causes likely include:
-  - *Insufficient training time* (only 2 epochs).  
-  - *Improper learning rate* during fine-tuning.  
-- This highlights that transformer models are *not plug-and-play* — they demand careful hyperparameter tuning to perform well.
+The DistilBERT model resulted in a clear training failure, achieving only $\mathbf{50.0\%}$ accuracy—the level of random chance for a balanced binary task. Section 5.2's qualitative review supports this, showing the model almost exclusively predicted "Positive." This poor outcome likely stems from inadequate training time (only 2 epochs) or an unsuitable learning rate for fine-tuning. This outcome underscores that transformer models are not instantly deployable and require substantial hyperparameter optimization to reach state-of-the-art performance
 
 ---
 
 ### 📊 Visualizations
 
 #### 1. Model Performance (Accuracy & F1)
-Visual bar charts confirm that *Logistic Regression* led in both accuracy and F1-score.
+The performance hierarchy is visually reinforced by the bar charts generated in Section 5.1 of the notebook, which clearly show Logistic Regression as the leading model.
+This conclusion is further supported by the ROC Curve Comparison plot (found in Section 5.2). The curves for Logistic Regression and Naive Bayes are situated closer to the top-left corner—indicating a higher Area Under the Curve (AUC)—compared to the LSTM model.
 
 > 📍 Suggestion: Insert the bar chart titled  
 > *“Model Performance (Accuracy & F1)”*  
 > (Generated in Notebook Cell 41)
-
 ---
 
 #### 2. ROC Curve Comparison
@@ -130,16 +105,9 @@ The *ROC curves* demonstrate that *Logistic Regression* and *Naive Bayes* have c
 
 ## 6. 🧾 Conclusion
 
-The experiment reveals a powerful insight — *baselines are not to be underestimated*.
+This project's key finding is a validation of the effectiveness of classical models. A meticulously configured Logistic Regression model, leveraging TF-IDF features, was found to be the optimal choice. It not only outperformed a Bi-LSTM and a suboptimally-tuned DistilBERT architecture but also demonstrated orders-of-magnitude faster training and deployment.
+Although transformer models, like DistilBERT, represent the cutting edge of NLP, this experiment underscores the fact that achieving state-of-the-art results is contingent upon extensive and meticulous hyperparameter optimization. In its absence, strong classical baselines often retain their competitive edge due to their inherent efficiency and high effectiveness in many text classification scenarios
 
-- *Logistic Regression* with *TF-IDF features* outperformed both the Bi-LSTM and a poorly-tuned DistilBERT model.  
-- It was also *exponentially faster* to train and deploy.  
-- *Classical models* remain strong contenders for text classification tasks, offering:
-  - High accuracy  
-  - Low computational cost  
-  - Interpretability  
-
-While *transformers* like DistilBERT have enormous potential, this project underscores that they require *careful fine-tuning* and *longer training* to reach their state-of-the-art potential.
 
 > ⚡ *Takeaway:* A well-designed baseline can beat complex architectures when implemented and optimized efficiently.
 
