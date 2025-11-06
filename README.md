@@ -114,9 +114,8 @@ This conclusion is further supported by the ROC Curve Comparison plot (found in 
 #### 2. ROC Curve Comparison
 The *ROC curves* demonstrate that *Logistic Regression* and *Naive Bayes* have curves closest to the *top-left corner*, indicating higher AUC values than Bi-LSTM.
 
-> 📍 Suggestion: Insert the ROC plot titled  
-> *“Combined ROC Curve Comparison”*  
-> (Generated in Notebook Cell 56)
+<img width="850" height="707" alt="2" src="https://github.com/user-attachments/assets/74eed1cd-a36c-460d-936b-cf02b32d4f28" />
+
 
 ---
 
