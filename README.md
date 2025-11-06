@@ -71,13 +71,12 @@ Run all cells *sequentially from top to bottom*.
 - ⚙ *The Bi-LSTM model (Part 3)* will take approximately *1–2 minutes* to train (with a GPU).  
 - 🧠 *The DistilBERT model (Part 4)* is computationally intensive and will take *~15–20 minutes* to train for *2 epochs*.
 
----
-
 4. *📊 Results*
 The final *quantitative comparison table, **performance graphs, and **qualitative analysis* are generated in *Part 5*.
-5. *🧪 Experiments and Results Summary*
+---
+6. *🧪 Experiments and Results Summary*
 
-### 📈 Quantitative Benchmarking
+## 5. 📈 Quantitative Benchmarking
 The primary comparison was based on Test Accuracy and Test F1-Score. Training and inference times were also recorded for a practical comparison of efficiency.
 
 | Model | Test Accuracy | Test F1-Score | Training Time (s) | Inference Time (s/review) |
