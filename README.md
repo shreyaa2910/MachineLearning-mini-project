@@ -107,9 +107,8 @@ The DistilBERT model resulted in a clear training failure, achieving only $\math
 The performance hierarchy is visually reinforced by the bar charts generated in Section 5.1 of the notebook, which clearly show Logistic Regression as the leading model.
 This conclusion is further supported by the ROC Curve Comparison plot (found in Section 5.2). The curves for Logistic Regression and Naive Bayes are situated closer to the top-left corner—indicating a higher Area Under the Curve (AUC)—compared to the LSTM model.
 
-> 📍 Suggestion: Insert the bar chart titled  
-> *“Model Performance (Accuracy & F1)”*  
-> (Generated in Notebook Cell 41)
+<img width="1206" height="585" alt="1" src="https://github.com/user-attachments/assets/1f6237de-34a8-4820-98b8-49ee9c39a68d" />
+
 ---
 
 #### 2. ROC Curve Comparison
