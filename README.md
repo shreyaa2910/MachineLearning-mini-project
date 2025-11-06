@@ -53,10 +53,29 @@ Four models were selected to represent a range of NLP techniques:
 | *DistilBERT* | A smaller, faster version of the BERT transformer. It was pre-trained and then fine-tuned for this task, using attention mechanisms for deep contextual analysis. |
 
 ---
+## 4. Steps to Run the Code
 
+1. *Environment:*  
+   - Run in *Google Colab*.  
+   - Enable GPU: `Runtime > Change runtime type > GPU (T4).`
 
+2. *Installation:*  
+   Install required libraries:
+   ```bash
+   !pip install transformers datasets -q
+   ```
+3. *▶ Execute All*
+Run all cells *sequentially from top to bottom*.
 
-## 5. 🧪 Experiments and Results Summary
+- 🕒 *Data loading and preprocessing (Parts 1–2)* may take a few minutes.  
+- ⚙ *The Bi-LSTM model (Part 3)* will take approximately *1–2 minutes* to train (with a GPU).  
+- 🧠 *The DistilBERT model (Part 4)* is computationally intensive and will take *~15–20 minutes* to train for *2 epochs*.
+
+---
+
+4. *📊 Results*
+The final *quantitative comparison table, **performance graphs, and **qualitative analysis* are generated in *Part 5*.
+5. *🧪 Experiments and Results Summary*
 
 ### 📈 Quantitative Benchmarking
 The primary comparison was based on Test Accuracy and Test F1-Score. Training and inference times were also recorded for a practical comparison of efficiency.
